@@ -34,7 +34,7 @@ namespace SimuladoIronFit.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PersonalDto>> GetPersonal(int id)
         {
-            var personal = await _context.Personais.Include(p => p.Aluno).FirstOrDefaultAsync(p => p.Id == id);
+            var personal = await _context.Personais.FirstOrDefaultAsync(p => p.Id == id);
 
             if (personal == null)
             {
@@ -45,7 +45,6 @@ namespace SimuladoIronFit.Api.Controllers
             {
                 Nome = personal.Nome,
                 Cpf = personal.Cpf,
-                NomeAluno = personal.Aluno.Nome
             };
         }
 

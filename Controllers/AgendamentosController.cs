@@ -39,7 +39,7 @@ namespace SimuladoIronFit.Api.Controllers
         {
             var agendamentos = await _context.Agendamentos
                 .Include(a => a.Personal)
-                .ThenInclude(p => p.Aluno)
+                .Include(a => a.Aluno)
                 .Select(a => new InfoAgendamentoDto
                 {
                     Id = a.Id,
@@ -48,7 +48,6 @@ namespace SimuladoIronFit.Api.Controllers
                     CpfPersonal = a.Personal.Cpf,
                     NomeAluno = a.Aluno.Nome,
                     CpfAluno = a.Aluno.Cpf,
-                    
                 })
                 .ToListAsync();
 
@@ -61,7 +60,7 @@ namespace SimuladoIronFit.Api.Controllers
         {
             var agendamento = await _context.Agendamentos
                 .Include(a => a.Personal)
-                .ThenInclude(p => p.Aluno)
+                .Include(a => a.Aluno)
                 .FirstOrDefaultAsync(a => a.Id == id);
             if (agendamento == null)
             {
