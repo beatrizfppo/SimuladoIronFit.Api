@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public DateTime DataHora { get; set; }
-        public string? Servico { get; set; }
+      
         public int PersonalId { get; set; }
         public Personal? Personal { get; set; }
         public int AlunoId { get; set; }

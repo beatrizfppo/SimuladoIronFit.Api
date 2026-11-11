@@ -6,5 +6,7 @@
         public int PersonalId { get; set; }
         public int AlunoId { get; set; }
 
+        
+
     }
 }

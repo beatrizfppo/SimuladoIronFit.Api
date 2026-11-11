@@ -31,7 +31,7 @@ namespace SimuladoIronFit.Api.Controllers
             _context.Agendamentos.Add(agendamento);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(CreateAgendamento), new { id = agendamento.Id }, agendamento);
+            return Ok(agendamento);
         }
 
         [HttpGet]

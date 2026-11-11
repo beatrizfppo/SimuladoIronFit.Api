@@ -25,7 +25,8 @@ namespace SimuladoIronFit.Api.Controllers
             {
                 Id = a.Id,
                 Nome = a.Nome,
-                Cpf = a.Cpf
+                Cpf = a.Cpf,
+                PersonalId = a.PersonalId
             }).ToListAsync();
         }
 
@@ -42,8 +43,10 @@ namespace SimuladoIronFit.Api.Controllers
 
             return new AlunoDto
             {
+                Id = aluno.Id,
                 Nome = aluno.Nome,
-                Cpf = aluno.Cpf
+                Cpf = aluno.Cpf,
+                PersonalId = aluno.PersonalId
             };
 
         }
@@ -52,10 +55,19 @@ namespace SimuladoIronFit.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<AlunoDto>> CreateAluno(AlunoDto alunoDto)
         {
+
+            var personalExiste = await _context.Personais.AnyAsync(p => p.Id == alunoDto.PersonalId);
+
+            if (!personalExiste)
+            {
+                return BadRequest(new { mensagem = $"Não existe nenhum Personal cadastrado com o ID {alunoDto.PersonalId}." });
+            }
+
             var aluno = new Aluno
             {
                 Nome = alunoDto.Nome,
-                Cpf = alunoDto.Cpf
+                Cpf = alunoDto.Cpf,
+                PersonalId = alunoDto.PersonalId
             };
 
             _context.Alunos.Add(aluno);
